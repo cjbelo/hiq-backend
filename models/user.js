@@ -48,3 +48,17 @@ export const getUser = ({ username, password }) => {
 export const getUserById = (id) => {
   return db.find("/users", (u) => u.id === id);
 };
+
+export const deleteUserById = (id) => {
+  const index = db.getIndex("/users", id);
+  if (index > -1) {
+    try {
+      db.delete(`/users[${index}]`);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+  return false;
+};

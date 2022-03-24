@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { sign, verify } from "jsonwebtoken";
-import { getUsers, getUser, getUserById, addUser, checkUsername } from "../models/user.js";
+import { getUsers, getUser, getUserById, addUser, checkUsername, deleteUserById } from "../models/user.js";
 import { verifyToken } from "../utils";
 
 const router = Router();
@@ -41,6 +41,11 @@ router.get("/api/users", (req, res) => {
 router.get("/api/user/:id", (req, res) => {
   const user = getUserById(req.params.id);
   res.json({ user });
+});
+
+router.delete("/api/user/:id", (req, res) => {
+  const deleted = deleteUserById(req.params.id);
+  res.json({ deleted });
 });
 
 // Add User
