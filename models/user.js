@@ -33,13 +33,14 @@ export const checkUsername = (username) => {
 };
 
 export const getUser = ({ username, password }) => {
-  let user = db.find(
+  const user = db.find(
     "/users",
     (u) => u.username === username.trim().toLowerCase() && u.password === md5(password.trim())
   );
   if (user) {
-    delete user.password;
-    return sign({ user }, SECRET_KEY);
+    let userData = { ...user };
+    delete userData.password;
+    return sign({ userData }, SECRET_KEY);
   }
   return undefined;
 };
