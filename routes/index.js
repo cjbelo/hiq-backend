@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { sign, verify } from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
 import { getUsers, getUser, getUserById, addUser, checkUsername, deleteUserById } from "../models/user.js";
 import { verifyToken } from "../utils";
 
@@ -25,7 +25,7 @@ router.post("/api/login", (req, res) => {
 });
 
 router.get("/api/profile", verifyToken, (req, res) => {
-  verify(req.token, SECRET_KEY, (err, { user }) => {
+  verify(req.token, SECRET_KEY, (err, user) => {
     if (err) res.sendStatus(403);
     else {
       res.json({ user });

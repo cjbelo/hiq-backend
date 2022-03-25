@@ -38,9 +38,9 @@ export const getUser = ({ username, password }) => {
     (u) => u.username === username.trim().toLowerCase() && u.password === md5(password.trim())
   );
   if (user) {
-    let userData = { ...user };
-    delete userData.password;
-    return sign({ userData }, SECRET_KEY);
+    // let userData = { ...user };
+    // delete userData.password;
+    return sign({ user }, SECRET_KEY);
   }
   return undefined;
 };
